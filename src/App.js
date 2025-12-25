@@ -44,7 +44,7 @@ useEffect(() => {
         {darkMode ? "Light Mode" : "Dark Mode"}
       </button>
       <h1 style={{
-        textAlign: "center" }}>Welcome to Stone.com</h1>
+        textAlign: "center" }}>Welcome to notStonee.com</h1>
       {/* Bottom wave (background) */}
       <Wavify
         fill={waveColor1}
