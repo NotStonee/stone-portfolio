@@ -31,7 +31,7 @@ function App() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column"
+        flexDirection: "column",
       }}
     >
       <button
@@ -61,51 +61,85 @@ function App() {
           <img
             src={sun}
             alt="Light Mode"
-            style={{ width: "36px", height: "36px", borderRadius: "75%" }}
+            style={{ width: "32px", height: "36px", borderRadius: "75%" }}
           />
         )}
       </button>
 
       {/* Main content */}
       <div
-      style={{display: "flex",
-      justifyContent: "center",
-      alignItems: "flex-start",
-      height: "60vh",
-      width: "40vw",
-      minWidth: "600px",
-      maxWidth: "40vw",
-      minHeight: "200px",
-      maxHeight: "60vh",
-      border: "2px solid white",
-      borderRadius: "15px",
-      backgroundColor: darkMode ? "#222222" : "#e0e0e0",
-      borderColor: darkMode ? "#444444" : "#c0c0c0",
-      }}
-      >
-        <div
         style={{
-          backgroundColor: darkMode ? "#e0e0e0" : "#222222",
-          width: "100%",
-          height: "10%",
-          borderTopLeftRadius: "13px",
-          borderTopRightRadius: "13px",
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
+          justifyContent: "flex-start",
           alignItems: "center",
-        }}>
-          <h1
-        style={{
-          textAlign: "center",
-          color : invertedTextColor,
+          height: "60vh",
+          width: "40vw",
+          minWidth: "600px",
+          maxWidth: "40vw",
+          minHeight: "200px",
+          maxHeight: "60vh",
+          border: "2px solid white",
+          borderRadius: "15px",
+          backgroundColor: darkMode ? "#222222" : "#e0e0e0",
+          borderColor: darkMode ? "#444444" : "#c0c0c0",
         }}
       >
-        Welcome
-      </h1>
+        <div
+          style={{
+            backgroundColor: darkMode ? "#e0e0e0" : "#222222",
+            width: "100%",
+            height: "10%",
+            borderTopLeftRadius: "13px",
+            borderTopRightRadius: "13px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <h1
+            style={{
+              textAlign: "center",
+              color: invertedTextColor,
+              fontFamily: "Roboto Mono, monospace",
+            }}
+          >
+            welcome
+          </h1>
         </div>
-      
-      </div>
 
+        {/* Introductory text */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vpx",
+            flex: 1,
+            marginTop: "-40%",
+          }}
+        >
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "50px",
+              margin: "20px",
+              fontFamily: "Zen Kaku Gothic New, sans-serif",
+            }}
+          >
+            hi{" "}
+            <span style={{ color: "#a8dfffff", fontWeight: "regular" }}>
+              i’m notstonee
+            </span>
+            <br />{" "}
+            <span style={{ fontSize: 20 }}>developer, student, and skater</span>
+          </p>
+        </div>
+
+        {/*buttons to navigate portfolio sections*/}
+        <div></div>
+      </div>
 
       {/* Bottom wave (background) */}
       <Wavify
