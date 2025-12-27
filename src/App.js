@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Wavify from "react-wavify";
 import moon from "./moon.jpg";
+import nico from "./nico.png";
 import sun from "./sun.jpg";
 
 function App() {
@@ -133,12 +134,12 @@ function App() {
               i’m notstonee
             </span>
             <br />{" "}
-            <span style={{ fontSize: 20 }}>developer, student, and skater</span>
+            {/* <span style={{ fontSize: 20 }}>developer, student, and skater</span> */}
           </p>
         </div>
 
         {/*buttons to navigate portfolio sections*/}
-        <div></div>
+        <div><img src={nico} alt="nico" style={{width: "720px", height: "420px" }}></img></div>
       </div>
 
       {/* Bottom wave (background) */}
