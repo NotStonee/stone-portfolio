@@ -1,22 +1,16 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Wavify from "react-wavify";
-import moon from "./moon.jpg";
-import nico from "./nico.png";
-import sun from "./sun.jpg";
+import red from "./imageres.png";
+
 
 function App() {
-  const [darkMode, setDarkMode] = React.useState(true);
 
   //colors for dark mode
-  const bgColor = darkMode ? "#171717" : "#f5f5f5";
-  const textColor = darkMode ? "#f5f5f5" : "#181a1b";
-  const invertedTextColor = darkMode ? "#181a1b" : "#f5f5f5";
-  const waveColor1 = darkMode ? "#adf1ff" : "#a0d2ff";
-  const waveColor2 = darkMode ? "#356586" : "#a0d2ff";
-
-  function toggleDarkMode() {
-    setDarkMode((prev) => !prev);
-  }
+  const bgColor =  "#171717" ;
+  const textColor = "#f5f5f5";
+  const invertedTextColor = "#181a1b";
+  const waveColor1 = "#adf1ff";
+  const waveColor2 = "#356586";
 
   useEffect(() => {
     document.body.style.backgroundColor = bgColor;
@@ -35,38 +29,6 @@ function App() {
         flexDirection: "column",
       }}
     >
-      <button
-        style={{
-          position: "fixed",
-          top: 20,
-          right: 20,
-          padding: "5px 5px",
-          backgroundColor: darkMode ? bgColor : bgColor,
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          zIndex: 10,
-        }}
-        onClick={() => {
-          toggleDarkMode();
-        }}
-      >
-        {darkMode ? (
-          <img
-            src={moon}
-            alt="Dark Mode"
-            style={{ width: "32px", height: "36px", borderRadius: "75%" }}
-          />
-        ) : (
-          <img
-            src={sun}
-            alt="Light Mode"
-            style={{ width: "32px", height: "36px", borderRadius: "75%" }}
-          />
-        )}
-      </button>
-
       {/* Main content */}
       <div
         style={{
@@ -82,13 +44,13 @@ function App() {
           maxHeight: "60vh",
           border: "2px solid white",
           borderRadius: "15px",
-          backgroundColor: darkMode ? "#222222" : "#e0e0e0",
-          borderColor: darkMode ? "#444444" : "#c0c0c0",
+          backgroundColor:  "#222222" ,
+          borderColor: "#444444",
         }}
       >
         <div
           style={{
-            backgroundColor: darkMode ? "#e0e0e0" : "#222222",
+            backgroundColor:"#e0e0e0",
             width: "100%",
             height: "10%",
             borderTopLeftRadius: "13px",
@@ -139,7 +101,7 @@ function App() {
         </div>
 
         {/*buttons to navigate portfolio sections*/}
-        <div><img src={nico} alt="nico" style={{width: "720px", height: "420px" }}></img></div>
+        <div><img src={red} alt="red" style={{width: "720px", height: "420px" }}></img></div>
       </div>
 
       {/* Bottom wave (background) */}
@@ -150,7 +112,7 @@ function App() {
           height: 30,
           amplitude: 10,
           speed: 0.25,
-          points: 2,
+          points: 4,
         }}
         style={{
           position: "fixed",
@@ -168,7 +130,7 @@ function App() {
           height: 60,
           amplitude: 10,
           speed: 0.25,
-          points: 2,
+          points: 4,
         }}
         style={{
           position: "fixed",
