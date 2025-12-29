@@ -101,7 +101,7 @@ function App() {
         </div>
 
         {/*buttons to navigate portfolio sections*/}
-        <div><img src={red} alt="red" style={{width: "720px", height: "420px" }}></img></div>
+        <div><img src={red} alt="red" style={{width: "420px", height: "420px" }}></img></div>
       </div>
 
       {/* Bottom wave (background) */}
