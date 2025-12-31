@@ -35,7 +35,7 @@ function App() {
               i’m notstonee
             </span>
             <br />{" "}
-            {/* <span style={{ fontSize: 20 }}>developer, student, and skater</span> */}
+            {/* <span className = "info-description">developer, student, and skater</span> */}
           </p>
         </div>
         {/*buttons to navigate portfolio sections*/}
