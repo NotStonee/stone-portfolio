@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import Wavify from "react-wavify";
+import "./App.css";
 import red from "./imageres.png";
 
 
-function App() {
 
+function App() {
   //colors for dark mode
   const bgColor =  "#171717" ;
   const textColor = "#f5f5f5";
@@ -18,92 +19,30 @@ function App() {
   }, [bgColor, textColor]);
 
   return (
-    <div
-      style={{
-        color: textColor,
-        transition: "all 1s ease",
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
+    <div className="app-root">
       {/* Main content */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          height: "60vh",
-          width: "40vw",
-          minWidth: "600px",
-          maxWidth: "40vw",
-          minHeight: "200px",
-          maxHeight: "60vh",
-          border: "2px solid white",
-          borderRadius: "15px",
-          backgroundColor:  "#222222" ,
-          borderColor: "#444444",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor:"#e0e0e0",
-            width: "100%",
-            height: "10%",
-            borderTopLeftRadius: "13px",
-            borderTopRightRadius: "13px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <h1
-            style={{
-              textAlign: "center",
-              color: invertedTextColor,
-              fontFamily: "Roboto Mono, monospace",
-            }}
-          >
+      <div className="main-content">
+        <div className="main-header">
+          <h1 className="main-title" style={{ color: invertedTextColor }}>
             welcome
           </h1>
         </div>
-
         {/* Introductory text */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vpx",
-            flex: 1,
-            marginTop: "-40%",
-          }}
-        >
-          <p
-            style={{
-              textAlign: "center",
-              fontSize: "50px",
-              margin: "20px",
-              fontFamily: "Zen Kaku Gothic New, sans-serif",
-            }}
-          >
+        <div className="intro-text">
+          <p className="intro-message">
             hi{" "}
-            <span style={{ color: "#a8dfffff", fontWeight: "regular" }}>
+            <span className="highlight-name">
               i’m notstonee
             </span>
             <br />{" "}
             {/* <span style={{ fontSize: 20 }}>developer, student, and skater</span> */}
           </p>
         </div>
-
         {/*buttons to navigate portfolio sections*/}
-        <div><img src={red} alt="red" style={{width: "420px", height: "420px" }}></img></div>
+        <div className="img-container">
+          <img src={red} alt="red" className="main-img" />
+        </div>
       </div>
-
       {/* Bottom wave (background) */}
       <Wavify
         fill={waveColor1}
