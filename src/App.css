@@ -1,3 +1,66 @@
+/* Popup grow/shrink animation */
+.popup-animate-in {
+  animation: popup-grow-in 0.28s cubic-bezier(0.4, 0.8, 0.2, 1) forwards;
+}
+.popup-animate-out {
+  animation: popup-shrink-out 0.22s cubic-bezier(0.4, 0.8, 0.2, 1) forwards;
+}
+@keyframes popup-grow-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes popup-shrink-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+/* Add spacing below section buttons */
+.section-buttons {
+  padding-bottom: 3rem;
+}
+/* Popup window styles */
+.popup-window {
+  transition: box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  background: #222222;
+  color: #f5f5f5;
+  font-family: 'Roboto Mono', monospace;
+  border-radius: 8px;
+  border: 2px solid #444444;
+  min-width: 250px;
+  min-height: 120px;
+  position: absolute;
+}
+.popup-window:active, .popup-window:focus-within {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+.popup-titlebar button {
+  outline: none;
+}
+ .popup-titlebar {
+  cursor: default;
+  background: #e0e0e0;
+  color: #181a1b;
+  font-family: 'Roboto Mono', monospace;
+  padding: 8px 12px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
 /* Responsive styles for App.js */
 
 .app-root {
@@ -16,7 +79,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  min-height: 300px;
+  min-height: 550px;
   min-width: 0;
   width: 80vw;
   max-width: 800px;
@@ -38,6 +101,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 0;
 }
 
 .main-title {
@@ -53,7 +117,8 @@
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-top: 0.5rem;
+  padding: 3.5rem 0 3.5rem 0;
+  margin: 0;
 }
 
 .intro-message {
@@ -69,8 +134,7 @@
   margin-top: 0;
   color: #cccccc;
   font-weight: 400;
-  font-size: 1rem;
-
+  font-size: 1.7rem;
 }
 
 .highlight-name {
@@ -119,7 +183,7 @@
     font-size: 2rem;
   }
   .info-description {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   .main-img {
     max-width: 95vw;
@@ -129,7 +193,7 @@
 
 @media (max-width: 400px) {
   .main-content {
-
+    
   }
   .main-title {
     font-size: 1rem;
