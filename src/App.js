@@ -15,11 +15,23 @@ const popups = [
 ];
 
 
-function DraggablePopup({ title, children, onClose, defaultPosition, zIndex, onDragStart, onDragEnd, animateOut, onAnimationEnd }) {
-  const [position, setPosition] = useState(defaultPosition);
+// DraggablePopup: A window that can be moved by dragging its header.
+function DraggablePopup({
+  title,
+  children,
+  onClose,
+  position,
+  setPosition,
+  zIndex,
+  onDragStart,
+  onDragEnd,
+  animateOut,
+  onAnimationEnd
+}) {
   const [dragging, setDragging] = useState(false);
   const offset = useRef({ x: 0, y: 0 });
 
+  // Start dragging and record the offset between mouse and popup position
   const handleMouseDown = (e) => {
     setDragging(true);
     offset.current = {
@@ -29,19 +41,35 @@ function DraggablePopup({ title, children, onClose, defaultPosition, zIndex, onD
     if (onDragStart) onDragStart();
   };
 
+  // Move popup, clamping so the header stays on screen
   const handleMouseMove = (e) => {
     if (!dragging) return;
-    setPosition({
-      x: e.clientX - offset.current.x,
-      y: e.clientY - offset.current.y,
-    });
+    // Try to get popup and header dimensions
+    let popupWidth = 360; // fallback
+    let headerHeight = 40; // fallback
+    const popupElem = document.querySelector('.popup-window[style*="z-index: ' + zIndex + '"]');
+    if (popupElem) {
+      popupWidth = popupElem.offsetWidth;
+      const header = popupElem.querySelector('.popup-titlebar');
+      if (header) headerHeight = header.offsetHeight;
+    }
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let x = e.clientX - offset.current.x;
+    let y = e.clientY - offset.current.y;
+    // Clamp so header is always visible
+    x = Math.max(0, Math.min(x, vw - popupWidth));
+    y = Math.max(0, Math.min(y, vh - headerHeight));
+    setPosition({ x, y });
   };
 
+  // Stop dragging
   const handleMouseUp = () => {
     setDragging(false);
-    if (onDragEnd) onDragEnd();
+    if (onDragEnd) onDragEnd(position);
   };
 
+  // Attach/remove mousemove/mouseup listeners when dragging
   useEffect(() => {
     if (dragging) {
       window.addEventListener('mousemove', handleMouseMove);
@@ -73,12 +101,26 @@ function DraggablePopup({ title, children, onClose, defaultPosition, zIndex, onD
         onMouseDown={handleMouseDown}
       >
         <span>{title}</span>
-        <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: 'inherit', fontWeight: 'bold', fontSize: 18, cursor: 'pointer' }}>&times;</button>
+        <button
+          onClick={onClose}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            color: 'inherit',
+            fontWeight: 'bold',
+            fontSize: 18,
+            cursor: 'pointer'
+          }}
+        >
+          &times;
+        </button>
       </div>
       <div style={{ padding: 16 }}>{children}</div>
     </div>
   );
 }
+
+
 
 function App() {
   //colors for dark mode
@@ -95,10 +137,13 @@ function App() {
 
   // Popup state
 
-  // [{key, zIndex, position, closing: bool}]
+  // openPopups: [{key, zIndex, closing: bool}]
   const [openPopups, setOpenPopups] = useState([]);
+  // popupPositions: { [key]: {x, y} }
+  const [popupPositions, setPopupPositions] = useState({});
   const [zCounter, setZCounter] = useState(10);
 
+  // Open a popup, bringing it to front or creating it at a unique default position
   const openPopup = (key) => {
     setOpenPopups((prev) => {
       if (prev.find((p) => p.key === key)) {
@@ -107,19 +152,37 @@ function App() {
           p.key === key ? { ...p, zIndex: zCounter + 1 } : p
         );
       }
+      // If not open, add to openPopups
       return [
         ...prev,
         {
           key,
           zIndex: zCounter + 1,
-          position: { x: 120 + prev.length * 40, y: 120 + prev.length * 40 },
           closing: false,
         },
       ];
     });
     setZCounter((z) => z + 1);
+    // If no position exists, set a unique default position
+    setPopupPositions((prev) => {
+      if (prev[key]) return prev;
+      const idx = popups.findIndex(p => p.key === key);
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      // Offset each popup by 40px diagonally from center, with a small random offset
+      const randOffsetX = Math.round(Math.random() * 30 - 15);
+      const randOffsetY = Math.round(Math.random() * 30 - 15);
+      return {
+        ...prev,
+        [key]: {
+          x: Math.round(vw / 2 - 180 + idx * 40 + randOffsetX),
+          y: Math.round(vh / 2 - 120 + idx * 40 + randOffsetY)
+        }
+      };
+    });
   };
 
+  // Start closing animation for popup
   const closePopup = (key) => {
     setOpenPopups((prev) =>
       prev.map((p) =>
@@ -128,12 +191,14 @@ function App() {
     );
   };
 
+  // Remove popup from openPopups after close animation
   const handlePopupAnimationEnd = (key, closing) => {
     if (closing) {
       setOpenPopups((prev) => prev.filter((p) => p.key !== key));
     }
   };
 
+  // Bring popup to front by increasing its zIndex
   const bringToFront = (key) => {
     setOpenPopups((prev) =>
       prev.map((p) =>
@@ -194,12 +259,18 @@ function App() {
       {/* Draggable Popups */}
       {openPopups.map((popup) => {
         const popupDef = popups.find((p) => p.key === popup.key);
+        // Always use position from popupPositions (guaranteed to exist after openPopup)
+        const position = popupPositions[popup.key];
+        const setPosition = (pos) => {
+          setPopupPositions((prev) => ({ ...prev, [popup.key]: pos }));
+        };
         return (
           <DraggablePopup
             key={popup.key}
             title={popupDef.label}
             zIndex={popup.zIndex}
-            defaultPosition={popup.position}
+            position={position}
+            setPosition={setPosition}
             onClose={() => closePopup(popup.key)}
             onDragStart={() => bringToFront(popup.key)}
             onDragEnd={() => {}}
